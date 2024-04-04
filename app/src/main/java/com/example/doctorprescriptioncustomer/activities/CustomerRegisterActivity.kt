@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 class CustomerRegisterActivity : AppCompatActivity() {
     lateinit var binding: ActivityCustomerRegisterBinding
     val db = Firebase.firestore
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+[a-z]+"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityCustomerRegisterBinding.inflate(layoutInflater)
@@ -34,6 +35,9 @@ class CustomerRegisterActivity : AppCompatActivity() {
                 binding.tilemail.isErrorEnabled = true
                 binding.tilemail.error = "Enter Qualification"
             }
+            else if (!binding.edtemail.text!!.matches(emailPattern.toRegex())) {
+            binding.edtemail.error = "Enter Valid Email"
+        }
             else if (binding.edtPassword.text.toString().isNullOrEmpty()) {
                 binding.tilPassword.isErrorEnabled = true
                 binding.tilPassword.error = "Enter Experience"

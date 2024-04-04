@@ -15,6 +15,7 @@ class CustomerLoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityCustomerLoginBinding
     var mAuth = Firebase.auth
     var progressBar: ProgressBar?=null
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+[a-z]+"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,10 @@ class CustomerLoginActivity : AppCompatActivity() {
             if (binding.edtemail.text.isNullOrEmpty()) {
                 binding.tilemail.isErrorEnabled = true
                 binding.tilemail.error = "Enter Email"
-            } else if (binding.edtPassword.text.isNullOrEmpty()) {
+            }else if (!binding.edtemail.text!!.matches(emailPattern.toRegex())) {
+                binding.edtemail.error = "Enter Valid Email"
+            }
+            else if (binding.edtPassword.text.isNullOrEmpty()) {
                 binding.tilPassword.isErrorEnabled = true
                 binding.tilPassword.error = "Enter password"
             } else {
